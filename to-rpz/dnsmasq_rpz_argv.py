@@ -37,8 +37,24 @@ with open(infile, 'w') as f: # load file in write mode
    f.write('\n'.join([line + '\n']))
   elif not line.strip():
    f.write('\n'.join([line + '\n']))
-  elif not line.startswith(';') and line.strip():
-   f.write('\n'.join([line + ' CNAME .\n'])) # add CNAME . if file does not start with ;   
+  elif line.endswith('1.1.1.1') or line.endswith('2606:4700:4700::1111'):
+   f.write('\n'.join([line + ' CNAME rpz-passthru.\n']))
+  elif not line.startswith(';') and line.strip() and not line.endswith('1.1.1.1') and not line.endswith('2606:4700:4700::1111'):
+   f.write('\n'.join([line + ' CNAME .\n'])) # add CNAME . if file does not start with ; 
+f.close()
+
+f = open(infile,'r')
+a = ['1.1.1.1','2606:4700:4700::1111']
+lst = []
+for line in f:
+    for word in a:
+        if word in line:
+            line = line.replace(word,'')
+    lst.append(line)
+f.close()
+f = open(infile,'w')
+for line in lst:
+    f.write(line)
 f.close()
 
 copyfile(infile, outfile) # copy input file to output file
