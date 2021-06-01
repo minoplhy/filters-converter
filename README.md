@@ -3,16 +3,18 @@
 ## Available Converter
 
 ### X -> RPZ
-X = * adguard
+X = adguard
 
-X = * adguard_wildcards [Domains itself and all subdomain]
+X = adguard_wildcards [Domains itself and all subdomain]
 
-X = * domains
+X = domains
 
-X = * domains_wildcards [Domains itself and all subdomain]
+X = domains allowlist
 
-X = * dnsmasq
+X = domains_wildcards [Domains itself and all subdomain]
 
-X = * hostfile
+X = dnsmasq
 
-X = * unbound
+X = hostfile
+
+X = unbound

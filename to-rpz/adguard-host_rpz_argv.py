@@ -6,17 +6,18 @@ from shutil import copyfile
 infile = sys.argv[1]
 outfile = sys.argv[2]
 
-f = open(infile,'r')
 a = ['||','^','|']
 lst = []
-for line in f:
+
+with open(infile, 'r') as f:
+ for line in f:
     for word in a:
         if word in line:
-            line = line.replace(word,'')
+             line = line.replace(word,'')
     lst.append(line)
 f.close()
-f = open(infile,'w')
-for line in lst:
+with open(infile, 'w') as f:
+ for line in lst:
     f.write(line)
 f.close()
 
@@ -43,18 +44,13 @@ with open(infile, 'w') as f: # load file in write mode
    f.write('\n'.join([line + ' CNAME .\n'])) # add CNAME . if file does not start with ;   
 f.close()
 
-f = open(infile,'r')
-a = ['@@']
-lst = []
-for line in f:
-    for word in a:
-        if word in line:
-            line = line.replace(word,'')
-    lst.append(line)
-f.close()
-f = open(infile,'w')
-for line in lst:
-    f.write(line)
+with open(infile) as f:
+    file = f.read().split('\n')
+for i in range(len(file)):
+    file[i] = sub('^@@', '', file[i])
+#print(file)
+with open(infile, 'w') as f1:
+    f1.writelines(["%s\n" % item  for item in file])
 f.close()
 
 copyfile(infile, outfile) # copy input file to output file

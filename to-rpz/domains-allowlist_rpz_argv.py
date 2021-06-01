@@ -24,7 +24,7 @@ with open(infile, 'w') as f: # load file in write mode
   elif not line.strip():
    f.write('\n'.join([line + '\n']))
   elif not line.startswith(';') and line.strip():
-   f.write('\n'.join([line + ' CNAME .\n'])) # add CNAME . if file does not start with ;   
+   f.write('\n'.join([line + ' CNAME rpz-passthru.\n'])) # add CNAME . if file does not start with ;   
 f.close()
 
 copyfile(infile, outfile) # copy input file to output file

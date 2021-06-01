@@ -7,17 +7,18 @@ from shutil import copyfile
 infile = sys.argv[1]
 outfile = sys.argv[2]
 
-f = open(infile,'r')
 a = ['local-data: ','"','local-zone: ','always_refuse','A','127.0.0.1','always_nxdomain']
 lst = []
-for line in f:
+
+with open(infile, 'r') as f:
+ for line in f:
     for word in a:
         if word in line:
-            line = line.replace(word,'')
+             line = line.replace(word,'')
     lst.append(line)
 f.close()
-f = open(infile,'w')
-for line in lst:
+with open(infile, 'w') as f:
+ for line in lst:
     f.write(line)
 f.close()
 	
@@ -70,9 +71,9 @@ with open(infile, 'w') as f: # load file in write mode
    f.write('\n'.join([line + '\n']))
   elif not line.strip():
    f.write('\n'.join([line + '\n']))
-  elif line.endswith('.'):
+  elif line.endswith('CNAME .'):
    f.write('\n'.join([line + '\n']))
-  elif line.strip() and not line.endswith('.'):
+  elif line.strip() and not line.endswith('CNAME .'):
    f.write('\n'.join([line + ' CNAME rpz-passthru.\n']))
 f.close()
 
