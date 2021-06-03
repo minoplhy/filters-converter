@@ -46,7 +46,7 @@ with open(infile, 'w') as f: # load file in write mode
    f.write('\n'.join([line + ' CNAME .\n'])) # add CNAME . if file does not start with ;   
 f.close()
 
-remove_words = ['localhost','localhost.localdomain','local','broadcasthost','loopback','ip6-localnet','ip6-mcastprefix','ip6-allnodes','ip6-allrouters','ip6-allhosts','ip6-loopback',]
+remove_words = ['localhost','localhost.localdomain','local','broadcasthost','loopback','ip6-localnet','ip6-mcastprefix','ip6-allnodes','ip6-allrouters','ip6-allhosts','ip6-loopback']
 
 with open(infile, 'r') as f:
   lines = f.read().splitlines()
