@@ -12,8 +12,10 @@ lst = []
 with open(infile, 'r') as f:
  for line in f:
     for word in a:
-        if word in line:
+        if word in line and not line.startswith('#'):
              line = line.replace(word,'')
+    else:
+		     line = line.replace(line, line)
     lst.append(line)
 f.close()
 with open(infile, 'w') as f:
