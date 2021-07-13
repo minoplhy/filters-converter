@@ -6,7 +6,7 @@ from shutil import copyfile
 infile = sys.argv[1]
 outfile = sys.argv[2]
 
-a = ['0.0.0.0 ','::1 ','127.0.0.1 ','0 ',':: ']
+a = ['0.0.0.0 ','0.0.0.0','::1 ','127.0.0.1 ','0','::','::1','127.0.0.1','0','::']
 lst = []
 
 with open(infile, 'r') as f:
