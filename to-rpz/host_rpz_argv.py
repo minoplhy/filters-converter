@@ -9,7 +9,7 @@ outfile = sys.argv[2]
 with open(infile) as f:
     file = f.read().split('\n')
     for i in range(len(file)):
-        file[i] = re.sub('^127.0.0.1 ', ' ', file[i])
+        file[i] = re.sub('^127.0.0.1 ', '', file[i])
         file[i] = re.sub('^0.0.0.0 ', '', file[i])
         file[i] = re.sub('^0 ', '', file[i])
         file[i] = re.sub('^:: ', '', file[i])
