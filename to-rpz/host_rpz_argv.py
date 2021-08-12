@@ -18,6 +18,15 @@ with open(infile, 'w') as f1:
     f1.writelines(["%s\n" % item  for item in file])
 f.close() 
 
+remove_words = ['localhost','localhost.localdomain','local','broadcasthost','loopback','ip6-localnet','ip6-mcastprefix','ip6-allnodes','ip6-allrouters','ip6-allhosts','ip6-loopback']
+
+with open(infile, 'r') as f:
+    lines = f.read().splitlines()
+with open(outfile, 'w') as f:
+    for line in lines:
+        if not line.endswith((tuple(remove_words))):
+            f.write('\n'.join([line + '\n']))
+            
 with open(infile) as f:
     file = f.read().split('\n')
 for i in range(len(file)):
@@ -42,15 +51,6 @@ with open(infile, 'w') as f: # load file in write mode
      elif ';' in line and not line.startswith(';'):
       f.write('\n'.join([line + '\n']))
 f.close()
-
-remove_words = ['localhost','localhost.localdomain','local','broadcasthost','loopback','ip6-localnet','ip6-mcastprefix','ip6-allnodes','ip6-allrouters','ip6-allhosts','ip6-loopback']
-
-with open(infile, 'r') as f:
-    lines = f.read().splitlines()
-with open(outfile, 'w') as f:
-    for line in lines:
-        if not line.endswith((tuple(remove_words))):
-            f.write('\n'.join([line + '\n']))
 
 with open(infile) as f:
     file = f.read().split('\n')
