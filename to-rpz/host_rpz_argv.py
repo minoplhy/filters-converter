@@ -6,36 +6,29 @@ from shutil import copyfile
 infile = sys.argv[1]
 outfile = sys.argv[2]
 
-with open(infile) as f:
-    file = f.read().split('\n')
-    for i in range(len(file)):
-        file[i] = re.sub('^127.0.0.1 ', '', file[i])
-        file[i] = re.sub('^0.0.0.0 ', '', file[i])
-        file[i] = re.sub('^0 ', '', file[i])
-        file[i] = re.sub('^:: ', '', file[i])
-        file[i] = re.sub('^::1 ', '' ,file[i])
-with open(infile, 'w') as f1:
-    f1.writelines(["%s\n" % item  for item in file])
-f.close() 
-
-remove_words = ['localhost','localhost.localdomain','local','broadcasthost','loopback','ip6-localnet','ip6-mcastprefix','ip6-allnodes','ip6-allrouters','ip6-allhosts','ip6-loopback']
-
+remove_words = ['localhost','localhost.localdomain','local','broadcasthost','loopback','ip6-localnet','ip6-mcastprefix','ip6-allnodes','ip6-allrouters','ip6-allhosts','ip6-loopback',' CNAME rpz-passthru.']
+    
 with open(infile, 'r') as f:
     lines = f.read().splitlines()
-with open(outfile, 'w') as f:
+with open(infile, 'w') as f:
     for line in lines:
         if not line.endswith((tuple(remove_words))):
             f.write('\n'.join([line + '\n']))
-            
+
 with open(infile) as f:
     file = f.read().split('\n')
-for i in range(len(file)):
-    file[i] = re.sub(r'#', ';', file[i])
-#print(file)
+    for i in range(len(file)):
+        file[i] = re.sub('0\.0\.0\.0 0\.0\.0\.0\Z', '' ,file[i])
+        file[i] = re.sub('\A127\.0\.0\.1 ', '', file[i])
+        file[i] = re.sub('\A0\.0\.0\.0 ', '', file[i])
+        file[i] = re.sub('\A0 ', '', file[i])
+        file[i] = re.sub('\A:: ', '', file[i])
+        file[i] = re.sub('\A::1 ', '' ,file[i])
+        file[i] = re.sub(r'#', ';', file[i])
 with open(infile, 'w') as f1:
     f1.writelines(["%s\n" % item  for item in file])
-f.close()
-
+f.close() 
+            
 with open(infile, 'r') as f: # load file 
  lines = f.read().splitlines() # read lines
 with open(infile, 'w') as f: # load file in write mode
