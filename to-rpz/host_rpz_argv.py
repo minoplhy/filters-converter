@@ -6,22 +6,17 @@ from shutil import copyfile
 infile = sys.argv[1]
 outfile = sys.argv[2]
 
-a = ['0.0.0.0 ','0.0.0.0','::1 ','127.0.0.1 ','0','::','::1','127.0.0.1','0','::']
-lst = []
-
-with open(infile, 'r') as f:
- for line in f:
-    for word in a:
-        if word in line and not line.startswith('#'):
-             line = line.replace(word,'')
-    else:
-		     line = line.replace(line, line)
-    lst.append(line)
-f.close()
-with open(infile, 'w') as f:
- for line in lst:
-    f.write(line)
-f.close()
+with open(infile) as f:
+    file = f.read().split('\n')
+    for i in range(len(file)):
+        file[i] = re.sub('^127.0.0.1 ', ' ', file[i])
+        file[i] = re.sub('^0.0.0.0 ', '', file[i])
+        file[i] = re.sub('^0 ', '', file[i])
+        file[i] = re.sub('^:: ', '', file[i])
+        file[i] = re.sub('^::1 ', '' ,file[i])
+with open(infile, 'w') as f1:
+    f1.writelines(["%s\n" % item  for item in file])
+f.close() 
 
 with open(infile) as f:
     file = f.read().split('\n')
