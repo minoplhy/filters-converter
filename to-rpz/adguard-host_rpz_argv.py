@@ -30,6 +30,7 @@ with open(infile, 'w') as f1:
     f1.writelines(["%s\n" % item  for item in file])
 f.close()
 
+dashier = ['.',':','/']
 with open(infile, 'r') as f: # load file 
  lines = f.read().splitlines() # read lines
 with open(infile, 'w') as f: # load file in write mode
@@ -40,7 +41,7 @@ with open(infile, 'w') as f: # load file in write mode
    f.write('\n'.join([line + ' CNAME rpz-passthru.\n']))
   elif not line.strip():
    f.write('\n'.join([line + '\n']))
-  elif not line.startswith(';') and not line.startswith('@@') and line.strip():
+  elif not line.startswith(';') and not line.startswith('@@') and line.strip() and not line.startswith(tuple(dashier)):
    f.write('\n'.join([line + ' CNAME .\n'])) # add CNAME . if file does not start with ;   
 f.close()
 
