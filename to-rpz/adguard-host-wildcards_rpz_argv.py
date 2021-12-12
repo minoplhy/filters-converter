@@ -6,7 +6,16 @@ from shutil import copyfile
 infile = sys.argv[1]
 outfile = sys.argv[2]
 
-a = ['||','^']
+with open(infile) as f:
+    file = f.read().split('\n')
+for i in range(len(file)):
+    file[i] = re.sub('(..*#..*)|(@@\|\|..*)|(\|\|..*\/..*)|(^\/..*)|(^..*\$app=..*)|(^..*\$removeparam=..*)|(^..\/..*)|(\$..*)|(^\...*)|(^:..*)|(^\|http)|(^@@..*)|(^_..*)|(\*..*)', '', file[i])
+#print(file)
+with open(infile, 'w') as f1:
+    f1.writelines(["%s\n" % item  for item in file])
+f.close() 
+
+a = ['||','^','|']
 lst = []
 
 with open(infile, 'r') as f:

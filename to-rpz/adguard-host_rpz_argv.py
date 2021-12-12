@@ -1,10 +1,19 @@
 import os
 import sys
-from re import sub
+import re
 from shutil import copyfile
 
 infile = sys.argv[1]
 outfile = sys.argv[2]
+
+with open(infile) as f:
+    file = f.read().split('\n')
+for i in range(len(file)):
+    file[i] = re.sub('(..*#..*)|(@@\|\|..*)|(\|\|..*\/..*)|(^\/..*)|(^..*\$app=..*)|(^..*\$removeparam=..*)|(^..\/..*)|(\$..*)|(^\...*)|(^:..*)|(^\|http)|(^@@..*)|(^_..*)|(\*..*)', '', file[i])
+#print(file)
+with open(infile, 'w') as f1:
+    f1.writelines(["%s\n" % item  for item in file])
+f.close() 
 
 a = ['||','^','|']
 lst = []
@@ -24,7 +33,7 @@ f.close()
 with open(infile) as f:
     file = f.read().split('\n')
 for i in range(len(file)):
-    file[i] = sub(r'!', ';', file[i])
+    file[i] = re.sub(r'!', ';', file[i])
 #print(file)
 with open(infile, 'w') as f1:
     f1.writelines(["%s\n" % item  for item in file])
@@ -48,7 +57,7 @@ f.close()
 with open(infile) as f:
     file = f.read().split('\n')
 for i in range(len(file)):
-    file[i] = sub('^@@', '', file[i])
+    file[i] = re.sub('^@@', '', file[i])
 #print(file)
 with open(infile, 'w') as f1:
     f1.writelines(["%s\n" % item  for item in file])
