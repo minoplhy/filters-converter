@@ -9,7 +9,7 @@ outfile = sys.argv[2]
 with open(infile) as f:
     file = f.read().split('\n')
 for i in range(len(file)):
-    file[i] = sub('((\|\||\@\@\|\|)..*(\/|\*(\-|\&|banner|..))..*)|(^\|http)|(^(_|\*|&|\-|\/|\.|:|\?|\=|\;|\,|\$)..*)|(..*(#|\$|\*)..*)|(^..*\$(app=|removeparam=|popup)..*)(\$..*)', '', file[i])
+    file[i] = sub('((\|\||\@\@\|\|)..*(\/|\*(\-|\&|banner|..))..*)|(^\|http)|(^(_|\*|&|\-|\/|\.|:|\?|\=|\;|\,|\$|\~)..*)|(..*(#|\$|\*)..*)|(^..*\$(app=|removeparam=|popup)..*)(\$..*)', '', file[i])
 #print(file)
 with open(infile, 'w') as f1:
     f1.writelines(["%s\n" % item  for item in file])
